@@ -1,5 +1,6 @@
 package co.com.authentication.r2dbc.entity;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,13 +17,14 @@ import org.springframework.data.relational.core.mapping.Table;
 @Setter
 @Builder
 public class UserEntity {
+
   @Id
   private Long id;
   private String name;
   @Column("last_name")
   private String lastName;
   @Column("birth_date")
-  private String birthDate;
+  private LocalDate birthDate;
   private String address;
   private String phone;
   private String email;

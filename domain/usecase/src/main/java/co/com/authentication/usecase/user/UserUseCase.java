@@ -32,6 +32,6 @@ public class UserUseCase {
   }
 
   public Mono<Void> deleteById(Long id) {
-    return userRepository.deleteBy(id);
+    return userRepository.deleteById(id);
   }
 }

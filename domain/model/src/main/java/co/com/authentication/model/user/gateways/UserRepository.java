@@ -11,6 +11,6 @@ public interface UserRepository {
   Mono<User> findByEmail(String email);
   Flux<User> findAll();
   Mono<User> update(Long id,User user);
-  Mono<Void> deleteBy(Long id);
+  Mono<Void> deleteById(Long id);
 
 }

@@ -11,13 +11,13 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
-public class UserRouterRest {
+public class RouterRest {
 
   @Bean
   public RouterFunction<ServerResponse> routerFunction(UserHandler userHandler) {
     return route(POST("/api/v1/user"), userHandler::saveUser)
-        .andRoute(GET("/api/v1/user/{id}"), userHandler::findUserById)
-        .and(route(GET("/api/v1/user/findAll"), userHandler::findAll))
+        .and(route(GET("/api/v1/user/{id}"), userHandler::findUserById))
+        .and(route(GET("/api/v1/user"), userHandler::findAll))
         .and(route(DELETE("/api/v1/user/delete/{id}"), userHandler::deleteById));
   }
 }

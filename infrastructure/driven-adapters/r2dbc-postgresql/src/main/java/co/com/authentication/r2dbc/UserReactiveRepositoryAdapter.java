@@ -37,7 +37,7 @@ public class UserReactiveRepositoryAdapter extends ReactiveAdapterOperations<
   }
 
   @Override
-  public Mono<Void> deleteBy(Long id) {
+  public Mono<Void> deleteById(Long id) {
     return repository.deleteById(id);
   }
 }
