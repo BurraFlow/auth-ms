@@ -28,6 +28,6 @@ adapters:
     host: "localhost"
     port: 5432
     database: "authentication"
-    schema: "crediYa"
+    schema: "ms_auth"
     username: "postgres"
     password: "1234"
