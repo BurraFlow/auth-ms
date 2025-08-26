@@ -1,5 +1,6 @@
 package co.com.authentication.api;
 
+import co.com.authentication.api.dto.UpdateUserDto;
 import co.com.authentication.api.mapper.UserDtoMapper;
 import co.com.authentication.api.dto.CreateUserDto;
 import co.com.authentication.api.dto.UserDto;
@@ -50,7 +51,6 @@ public class UserHandler {
         .contentType(MediaType.APPLICATION_JSON)
         .body(userUseCase.findAll().map(mapper::toResponse), UserDto.class);
   }
-/*
   public Mono<ServerResponse> uptadeUSer(ServerRequest request) {
     Long id = Long.valueOf(request.pathVariable("id"));
     return request.bodyToMono(UpdateUserDto.class)
@@ -59,7 +59,6 @@ public class UserHandler {
         .flatMap(savedUser -> ServerResponse.ok()
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(savedUser));
-  */
 
   public Mono<ServerResponse> deleteById(ServerRequest request) {
     Long id = Long.valueOf(request.pathVariable("id"));
