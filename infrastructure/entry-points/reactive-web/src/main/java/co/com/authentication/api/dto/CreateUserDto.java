@@ -18,6 +18,8 @@ public record CreateUserDto(
     @Schema(description = "Last name of the applicant", example = "Pérez", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "Last name is required")
     String lastName,
+    @Schema(description = "Documentation number of the applicant", example = "1041923445")
+    String documentationNumber,
 
     @Schema(description = "Birth date of the applicant", example = "1990-05-21")
     LocalDate birthDate,

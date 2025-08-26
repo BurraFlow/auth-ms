@@ -46,7 +46,7 @@ public class UserHandler {
   public Mono<ServerResponse> updateUser(ServerRequest request) {
     return Mono.just(request.pathVariable("id"))
         .map(Long::valueOf)
-        .onErrorResume(e -> Mono.error(new IllegalArgumentException("Invalid user id")))
+        .onErrorResume(e -> Mono.error(new RuntimeException("Invalid user id")))
         .flatMap(id -> request.bodyToMono(UpdateUserDto.class)
             .map(mapper::toModel)
             .flatMap(user -> userUseCase.updateUser(id, user))

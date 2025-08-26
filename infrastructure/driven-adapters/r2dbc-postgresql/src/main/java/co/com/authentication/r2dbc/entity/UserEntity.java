@@ -23,6 +23,8 @@ public class UserEntity {
   private String name;
   @Column("last_name")
   private String lastName;
+  @Column("documentation_number")
+  private String documentationNumber;
   @Column("birth_date")
   private LocalDate birthDate;
   private String address;

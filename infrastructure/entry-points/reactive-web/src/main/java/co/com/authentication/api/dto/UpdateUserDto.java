@@ -15,6 +15,9 @@ public record UpdateUserDto(
     @Schema(description = "Last names of the applicant", example = "García Peres")
     String lastName,
 
+    @Schema(description = "Documentation number of the applicant", example = "1041923445")
+    String documentationNumber,
+
     @Schema(description = "Birth date of the applicant", example = "1988-03-15")
     LocalDate birthDate,
 
@@ -32,5 +35,7 @@ public record UpdateUserDto(
     @DecimalMin(value = "0.0", inclusive = false, message = "Salary must be greater than 0")
     @DecimalMax(value = "15000000.0", message = "Salary must be less than or equal to 15000000")
     Double baseSalary
-) {}
+) {
+
+}
 
