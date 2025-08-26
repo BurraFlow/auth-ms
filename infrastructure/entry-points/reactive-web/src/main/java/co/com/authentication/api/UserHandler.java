@@ -1,8 +1,9 @@
 package co.com.authentication.api;
 
-import co.com.authentication.api.mapper.UserDtoMapper;
 import co.com.authentication.api.dto.CreateUserDto;
+import co.com.authentication.api.dto.UpdateUserDto;
 import co.com.authentication.api.dto.UserDto;
+import co.com.authentication.api.mapper.UserDtoMapper;
 import co.com.authentication.usecase.user.UserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -36,30 +37,26 @@ public class UserHandler {
             .bodyValue(dto));
   }
 
-  public Mono<ServerResponse> findUserByEmail(ServerRequest request) {
-    String email = request.pathVariable("email");
-    return userUseCase.findByEmail(email)
-        .map(mapper::toResponse)
-        .flatMap(dto -> ServerResponse.ok()
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(dto));
-  }
-
   public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
     return ServerResponse.ok()
         .contentType(MediaType.APPLICATION_JSON)
         .body(userUseCase.findAll().map(mapper::toResponse), UserDto.class);
   }
-/*
-  public Mono<ServerResponse> uptadeUSer(ServerRequest request) {
-    Long id = Long.valueOf(request.pathVariable("id"));
-    return request.bodyToMono(UpdateUserDto.class)
-        .map(mapper::toModel)
-        .flatMap(userUseCase::updateUser)
-        .flatMap(savedUser -> ServerResponse.ok()
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(savedUser));
-  */
+
+  public Mono<ServerResponse> updateUser(ServerRequest request) {
+    return Mono.just(request.pathVariable("id"))
+        .map(Long::valueOf)
+        .onErrorResume(e -> Mono.error(new IllegalArgumentException("Invalid user id")))
+        .flatMap(id -> request.bodyToMono(UpdateUserDto.class)
+            .map(mapper::toModel)
+            .flatMap(user -> userUseCase.updateUser(id, user))
+            .flatMap(savedUser -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(savedUser))
+            .switchIfEmpty(ServerResponse.notFound().build())
+        );
+  }
+
 
   public Mono<ServerResponse> deleteById(ServerRequest request) {
     Long id = Long.valueOf(request.pathVariable("id"));
